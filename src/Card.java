@@ -71,6 +71,7 @@ public class Card extends ClickableRectangle {
 
     @Override
     public void draw(PApplet sketch) {
+        
         if (turned) {
             sketch.fill(150);
             sketch.rect(x, y, width, height);

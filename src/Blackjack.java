@@ -125,8 +125,9 @@ public class Blackjack extends CardGame {
         BJCard choice = computerPlayer.playCard(playerTwoHand, (BJCard) lastPlayedCard);
         if (choice == null) {
             drawCard(playerTwoHand);
-            playerTwoHand.getCard(0).setTurned(true);
-            System.out.println("player two draws");
+            playerTwoHand.getCard(playerTwoHand.getSize() -1).setTurned(true);
+
+            System.out.println("player two draws" + playerTwoHand.getSize() );
             switchTurns();
             return;
         }

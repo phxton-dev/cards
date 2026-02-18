@@ -109,7 +109,7 @@ public class CardGame {
         }
         // Remove card from hand
         hand.removeCard(card);
-        card.setTurned(false);
+        card.setTurned(true);
         // Add to discard pile
         discardPile.add(card);
         lastPlayedCard = card;

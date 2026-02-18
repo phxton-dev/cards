@@ -10,12 +10,12 @@ public class App extends PApplet {
     }
     @Override
     public void settings() {
-        size(600, 600);   
+        size(600, 600);  
     }
 
     @Override
     public void draw() {
-        background(255);
+        background(50,168,82); 
         // Draw player hands
         for (int i = 0; i < cardGame.playerOneHand.getSize(); i++) {
             Card card = cardGame.playerOneHand.getCard(i);
