@@ -4,13 +4,13 @@ public class Blackjack extends CardGame {
     // Uno-specific state
     UnoComputer computerPlayer;
     boolean choosingWildColor = false;
-    UnoCard pendingWildCard;
+    BJCard pendingWildCard;
     ClickableRectangle[] wildColorButtons;
     int wildButtonSize = 24;
     int wildCenterX = 300;
     int wildCenterY = 300;
     static String[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
-    static String[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+    static String[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 
     public Blackjack() {
         initializeGame();
@@ -33,8 +33,8 @@ public class Blackjack extends CardGame {
         dealCards(2);
     }
 
-    private UnoCard createCard(String suit, String value) {
-        UnoCard card = new UnoCard(suit, value); // Image loading can be added later
+    private BJCard createCard(String suit, String value) {
+        BJCard card = new BJCard(suit, value); // Image loading can be added later
         card.suit = suit;
         card.value = value;
         return card;
@@ -73,13 +73,13 @@ public class Blackjack extends CardGame {
 
     @Override
     protected boolean isValidPlay(Card card) {
-        UnoCard unoCard = (UnoCard) card;
+        BJCard unoCard = (BJCard) card;
         // Wild cards are always valid
         if (unoCard.suit.equals("Wild")) {
             return true;
         }
         // Card must match suit or value of last played card
-        UnoCard lastUno = (UnoCard) lastPlayedCard;
+        BJCard lastUno = (BJCard) lastPlayedCard;
         return unoCard.suit.equals(lastUno.suit) ||
                 unoCard.value.equals(lastUno.value);
     }
@@ -90,7 +90,7 @@ public class Blackjack extends CardGame {
             handleWildChooserClick(mouseX, mouseY);
             return;
         }
-        UnoCard clickedCard = (UnoCard) getClickedCard(mouseX, mouseY);
+        BJCard clickedCard = (BJCard) getClickedCard(mouseX, mouseY);
         if (clickedCard == null) {
             return;
         }
@@ -104,11 +104,11 @@ public class Blackjack extends CardGame {
         if (clickedCard == selectedCard) {
             System.out.println("playing card: " + selectedCard.value + " of " + selectedCard.suit);
             if ("Wild".equals(selectedCard.suit)) {
-                pendingWildCard = (UnoCard) selectedCard;
+                pendingWildCard = (BJCard) selectedCard;
                 choosingWildColor = true;
                 return;
             }
-            if (playCard((UnoCard) selectedCard, playerOneHand)) {
+            if (playCard((BJCard) selectedCard, playerOneHand)) {
                 selectedCard.setSelected(false, selectedCardRaiseAmount);
                 selectedCard = null;
             }
@@ -122,7 +122,7 @@ public class Blackjack extends CardGame {
 
     @Override
     public void handleComputerTurn() {
-        UnoCard choice = computerPlayer.playCard(playerTwoHand, (UnoCard) lastPlayedCard);
+        BJCard choice = computerPlayer.playCard(playerTwoHand, (BJCard) lastPlayedCard);
         if (choice == null) {
             drawCard(playerTwoHand);
             playerTwoHand.getCard(0).setTurned(true);

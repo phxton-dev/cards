@@ -1,13 +1,13 @@
 import java.util.HashMap;
 
 public class UnoComputer {
-	public UnoCard playCard(Hand h, UnoCard current) {
+	public BJCard playCard(Hand h, BJCard current) {
 		if (h == null || current == null) {
 			return null;
 		}
-		UnoCard wildCandidate = null;
+		BJCard wildCandidate = null;
 		for (int i = 0; i < h.getSize(); i++) {
-			UnoCard card = (UnoCard) h.getCard(i);
+			BJCard card = (BJCard) h.getCard(i);
 			if (card == null) {
 				continue;
 			}
