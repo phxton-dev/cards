@@ -10,16 +10,16 @@ public class UnoCard extends Card {
         super.draw(sketch);
         // set card color based on suit
         switch (suit) {
-            case "Red":
+            case "Hearts":
                 sketch.fill(255, 0, 0);
                 break;
-            case "Yellow":
+            case "Diamonds":
                 sketch.fill(255, 255, 0);
                 break;
-            case "Green":
+            case "Clubs":
                 sketch.fill(0, 255, 0);
                 break;
-            case "Blue":
+            case "Spades":
                 sketch.fill(40, 40, 210);
                 break;
             default:
@@ -29,7 +29,7 @@ public class UnoCard extends Card {
         sketch.rect(x, y, width, height);
 
         // text 
-        if (suit == "Blue") {
+        if (suit == "Spades") {
             sketch.fill(255);
         } else {
             sketch.fill(0);

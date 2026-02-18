@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 
-public class Uno extends CardGame {
+public class Blackjack extends CardGame {
     // Uno-specific state
     UnoComputer computerPlayer;
     boolean choosingWildColor = false;
@@ -9,31 +9,20 @@ public class Uno extends CardGame {
     int wildButtonSize = 24;
     int wildCenterX = 300;
     int wildCenterY = 300;
-    static String[] colors = { "Red", "Yellow", "Green", "Blue" };
-    static String[] values = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Skip", "Reverse", "Draw Two" };
+    static String[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
+    static String[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
 
-    public Uno() {
+    public Blackjack() {
         initializeGame();
     }
 
     @Override
     protected void createDeck() {
-        // Create deck (Uno has 108 cards)
-        // Create standard cards (2 of each color/value combination except 0)
-        for (String color : colors) {
-            deck.add(createCard(color, "0")); // One 0 card per color
+        // Create deck (Blackjack has 52 cards, 13 values in each of 4 suits)
+        for (String suit : suits) {
             for (String value : values) {
-                if (!value.equals("0")) {
-                    deck.add(createCard(color, value));
-                    deck.add(createCard(color, value)); // Two of each
-                }
+                deck.add(createCard(suit, value));
             }
-        }
-        // Add wild cards (4 of each type)
-        for (int i = 0; i < 4; i++) {
-            // suit, value
-            deck.add(createCard("Wild", "Wild"));
-            deck.add(createCard("Wild", "Draw Four"));
         }
     }
 
@@ -41,17 +30,7 @@ public class Uno extends CardGame {
     protected void initializeGame() {
         super.initializeGame();
         computerPlayer = new UnoComputer();
-        dealCards(7);
-        // Place first card on discard pile
-        lastPlayedCard = deck.remove(0);
-        if (lastPlayedCard.suit.equals("Wild")) {
-            System.out.println("setting wild to a random color");
-            // If first card is wild, set it to a random color
-            lastPlayedCard.suit = colors[(int) (Math.random() * colors.length)];
-        }
-        discardPile.add(lastPlayedCard);
-
-        initializeWildColorButtons();
+        dealCards(2);
     }
 
     private UnoCard createCard(String suit, String value) {
@@ -178,7 +157,7 @@ public class Uno extends CardGame {
 
         for (int i = 0; i < wildColorButtons.length; i++) {
             ClickableRectangle button = wildColorButtons[i];
-            switch (colors[i]) {
+            switch (suits[i]) {
                 case "Red":
                     app.fill(255, 0, 0);
                     break;
@@ -206,7 +185,7 @@ public class Uno extends CardGame {
             if (wildColorButtons[i].isClicked(mouseX, mouseY)) {
                 if (playCard(pendingWildCard, playerOneHand)) {
                     // Set the wild card's suit to the chosen color AFTER it is validated
-                    pendingWildCard.suit = colors[i];
+                    pendingWildCard.suit = suits[i];
                     pendingWildCard.setSelected(false, raiseAmount);
                     pendingWildCard = null;
                     choosingWildColor = false;
