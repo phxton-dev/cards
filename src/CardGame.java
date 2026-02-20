@@ -63,17 +63,13 @@ public class CardGame {
         for (int i = 0; i < numCards; i++) {
             playerOneHand.addCard(deck.remove(0));
             Card card = deck.remove(0);
-            card.setTurned(true);
+            card.setTurned(false); // face down for computer player
             playerTwoHand.addCard(card);
         }
 
         // position cards
         playerOneHand.positionCards(50, 450, 80, 120, 20);
         playerTwoHand.positionCards(50, 50, 80, 120, 20);
-    }
-
-    protected boolean isValidPlay(Card card) {
-        return true;
     }
 
     public void drawCard(Hand hand) {
@@ -99,23 +95,6 @@ public class CardGame {
             // Switch turns after drawing
             switchTurns();
         }
-    }
-
-    public boolean playCard(Card card, Hand hand) {
-        // Check if card is valid to play
-        if (!isValidPlay(card)) {
-            System.out.println("Invalid play: " + card.value + " of " + card.suit);
-            return false;
-        }
-        // Remove card from hand
-        hand.removeCard(card);
-        card.setTurned(true);
-        // Add to discard pile
-        discardPile.add(card);
-        lastPlayedCard = card;
-        // Switch turns
-        switchTurns();
-        return true;
     }
 
     public void switchTurns() {
@@ -149,48 +128,4 @@ public class CardGame {
         switchTurns();
     }
 
-    public void handleCardClick(int mouseX, int mouseY) {
-        if (!playerOneTurn) {
-            return;
-        }
-        Card clickedCard = getClickedCard(mouseX, mouseY);
-        if (clickedCard == null) {
-            return;
-        }
-        // this is for the first time
-        if (selectedCard == null) {
-            selectedCard = clickedCard;
-            selectedCard.setSelected(true, selectedCardRaiseAmount);
-            return;
-        }
-
-        if (selectedCard == clickedCard) {
-            System.out.println("playing card: " + selectedCard.value + " of " + selectedCard.suit);
-            if (playCard(selectedCard, playerOneHand)) {
-                selectedCard.setSelected(false, selectedCardRaiseAmount);
-                selectedCard = null;
-            }
-            return;
-        }
-        // change selection
-        selectedCard.setSelected(false, selectedCardRaiseAmount);
-        selectedCard = clickedCard;
-        selectedCard.setSelected(true, selectedCardRaiseAmount);
-    }
-
-    // return the card that is clicked!
-    public Card getClickedCard(int mouseX, int mouseY) {
-        for (int i = playerOneHand.getSize() - 1; i >= 0; i--) {
-            Card card = playerOneHand.getCard(i);
-            if (card != null && card.isClicked(mouseX, mouseY)) {
-                return card;
-            }
-        }
-        return null;
-    }
-
-    public void drawChoices(PApplet app) {
-        // this method is available for overriding
-        // if you want to draw additional things (like Uno's wild color choices)
-    }
 }
