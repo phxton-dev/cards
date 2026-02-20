@@ -38,6 +38,13 @@ public class App extends PApplet {
         textAlign(CENTER, CENTER);
         text("Hit", cardGame.drawButton.x + cardGame.drawButton.width / 2, cardGame.drawButton.y + cardGame.drawButton.height / 2);
 
+        //draw stand button
+        fill(0);
+        cardGame.standButton.draw(this);
+        fill(255);
+        textAlign(CENTER, CENTER);
+        text("Stand", cardGame.standButton.x + cardGame.standButton.width / 2, cardGame.standButton.y + cardGame.standButton.height / 2);
+
         // Display current player
         fill(0);
         textSize(16);

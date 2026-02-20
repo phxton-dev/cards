@@ -24,6 +24,11 @@ public class CardGame {
     int drawButtonWidth = 100;
     int drawButtonHeight = 35;
 
+    //stand
+    ClickableRectangle standButton;
+    int standButtonX = 300;
+    int standButtonY = 300;
+
     public CardGame() {
         initializeGame();
         dealCards(6);
@@ -36,6 +41,12 @@ public class CardGame {
         drawButton.y = drawButtonY;
         drawButton.width = drawButtonWidth;
         drawButton.height = drawButtonHeight;
+
+        standButton = new ClickableRectangle();
+        standButton.x = standButtonX;
+        standButton.y = standButtonY;
+        standButton.width = drawButtonWidth;
+        standButton.height = drawButtonHeight;
 
         // Initialize decks and hands
         deck = new ArrayList<>();
