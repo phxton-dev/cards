@@ -34,9 +34,36 @@ public class Blackjack extends CardGame {
     }
 
     private BJCard createCard(String suit, String value) {
-        BJCard card = new BJCard(suit, value); // Image loading can be added later
+        BJCard card = new BJCard(value, suit);
         card.suit = suit;
         card.value = value;
+        
+        // Set card worth for Blackjack
+        int worth;
+        switch (value) {
+            case "2": worth = 2; break;
+            case "3": worth = 3; break;
+            case "4": worth = 4; break;
+            case "5": worth = 5; break;
+            case "6": worth = 6; break;
+            case "7": worth = 7; break;
+            case "8": worth = 8; break;
+            case "9": worth = 9; break;
+            case "10":
+            case "J":
+            case "Q":
+            case "K":
+                worth = 10;
+                break;
+            case "A":
+                worth = 11;
+                break;
+            default:
+                worth = 0;
+                break;
+        }
+        card.setWorth(worth);
+        
         return card;
     }
 

@@ -50,9 +50,20 @@ public class App extends PApplet {
         textSize(16);
         text("Current Player: " + cardGame.getCurrentPlayer(), width / 2, 20);
 
+        // Display hand worth
+        text("Player Hand: " + cardGame.getHandWorth(cardGame.playerOneHand), 100, height - 20);
+        
         // Display deck size
         text("Deck Size: " + cardGame.getDeckSize(), width / 2,
                 height - 20);
+        
+        // Display winner if game is over
+        String winner = cardGame.getWinner();
+        if (!winner.isEmpty()) {
+            fill(255, 255, 0);
+            textSize(32);
+            text(winner, width / 2, height / 2);
+        }
         // Display last played card
         if (cardGame.getLastPlayedCard() != null) {
             cardGame.getLastPlayedCard().setPosition(width / 2 - 40, height / 2 - 60, 80, 120);
@@ -74,6 +85,7 @@ public class App extends PApplet {
     @Override
     public void mousePressed() {
         cardGame.handleDrawButtonClick(mouseX, mouseY);
+        cardGame.handleStandButtonClick(mouseX, mouseY);
     }
 
 }

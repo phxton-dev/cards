@@ -31,7 +31,8 @@ public class CardGame {
 
     public CardGame() {
         initializeGame();
-        dealCards(6);
+        dealCards(2);
+
     }
 
     protected void initializeGame() {
@@ -77,7 +78,7 @@ public class CardGame {
         for (int i = 0; i < numCards; i++) {
             playerOneHand.addCard(deck.remove(0));
             Card card = deck.remove(0);
-            card.setTurned(false); // face down for computer player
+            card.setTurned(true); // face down for computer player
             playerTwoHand.addCard(card);
         }
 
@@ -106,7 +107,45 @@ public class CardGame {
     public void handleDrawButtonClick(int mouseX, int mouseY) {
         if (drawButton.isClicked(mouseX, mouseY) && playerOneTurn) {
             drawCard(playerOneHand);
+            // Reposition cards after drawing
+            playerOneHand.positionCards(50, 450, 80, 120, 20);
+            
+            // Check for bust after drawing
+            if (getHandWorth(playerOneHand) > 21) {
+                // Player busts, switch turns
+                switchTurns();
+            }
         }
+    }
+    
+    public void handleStandButtonClick(int mouseX, int mouseY) {
+        if (standButton.isClicked(mouseX, mouseY) && playerOneTurn) {
+            // Player chooses to stand, switch turns
+            switchTurns();
+        }
+    }
+    
+    public int getHandWorth(Hand hand) {
+        int total = 0;
+        int aceCount = 0;
+        
+        for (int i = 0; i < hand.getSize(); i++) {
+            Card card = hand.getCard(i);
+            if (card != null) {
+                int worth = card.getWorth();
+                total += worth;
+                if (worth == 11) {
+                    aceCount++;
+                }
+            }
+        }
+        
+        while (total > 21 && aceCount > 0) {
+            total -= 10;
+            aceCount--;
+        }
+        
+        return total;
     }
 
     public void switchTurns() {
@@ -136,8 +175,43 @@ public class CardGame {
     }
 
     public void handleComputerTurn() {
-        drawCard(playerTwoHand);
-        switchTurns();
+        // Flip all dealer cards face up
+        for (int i = 0; i < playerTwoHand.getSize(); i++) {
+            Card card = playerTwoHand.getCard(i);
+            if (card != null) {
+                card.setTurned(false);
+            }
+        }
+        
+        // Dealer hits until reaching 17 or higher (stands on soft 17)
+        while (getHandWorth(playerTwoHand) < 17) {
+            drawCard(playerTwoHand);
+            playerTwoHand.positionCards(50, 50, 80, 120, 20);
+        }
+        
+        // Game is over, determine winner
+        gameActive = false;
+    }
+    
+    public String getWinner() {
+        if (gameActive) {
+            return "";
+        }
+        
+        int playerWorth = getHandWorth(playerOneHand);
+        int dealerWorth = getHandWorth(playerTwoHand);
+        
+        if (playerWorth > 21) {
+            return "Dealer Wins! Player Busted";
+        } else if (dealerWorth > 21) {
+            return "Player Wins! Dealer Busted";
+        } else if (playerWorth > dealerWorth) {
+            return "Player Wins!";
+        } else if (dealerWorth > playerWorth) {
+            return "Dealer Wins!";
+        } else {
+            return "Push! (Tie)";
+        }
     }
 
 }
