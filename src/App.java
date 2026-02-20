@@ -32,11 +32,11 @@ public class App extends PApplet {
         }
         
         // Draw draw button
-        fill(200);
-        cardGame.drawButton.draw(this);
         fill(0);
+        cardGame.drawButton.draw(this);
+        fill(255);
         textAlign(CENTER, CENTER);
-        text("Draw", cardGame.drawButton.x + cardGame.drawButton.width / 2, cardGame.drawButton.y + cardGame.drawButton.height / 2);
+        text("Hit", cardGame.drawButton.x + cardGame.drawButton.width / 2, cardGame.drawButton.y + cardGame.drawButton.height / 2);
 
         // Display current player
         fill(0);
