@@ -19,8 +19,8 @@ public class CardGame {
 
     // UI
     ClickableRectangle drawButton;
-    int drawButtonX = 250;
-    int drawButtonY = 400;
+    int drawButtonX = 175;
+    int drawButtonY = 300;
     int drawButtonWidth = 100;
     int drawButtonHeight = 35;
 
