@@ -42,9 +42,6 @@ public class Blackjack extends CardGame {
 
     @Override
     public void handleDrawButtonClick(int mouseX, int mouseY) {
-        if (choosingWildColor) {
-            return;
-        }
         super.handleDrawButtonClick(mouseX, mouseY);
     }
 }

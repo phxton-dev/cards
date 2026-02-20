@@ -61,15 +61,12 @@ public class App extends PApplet {
                 timer = 0;
             }
         }
-
-        cardGame.drawChoices(this);
     }
 
     
     @Override
     public void mousePressed() {
         cardGame.handleDrawButtonClick(mouseX, mouseY);
-        cardGame.handleCardClick(mouseX, mouseY);
     }
 
 }

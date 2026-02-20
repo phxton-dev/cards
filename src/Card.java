@@ -93,4 +93,13 @@ public class Card extends ClickableRectangle {
         }
         sketch.strokeWeight(1);
     }
+
+    //setworth method for blackjack
+    private int worth;
+    public void setWorth(int worth) {
+        this.worth = worth;
+    }
+    public int getWorth() {
+        return worth;
+    }
 }

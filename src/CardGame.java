@@ -51,9 +51,12 @@ public class CardGame {
         // Create a standard deck of cards (for simplicity, using numbers and suits)
         String[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
         String[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        for (String suit : suits) {
-            for (String value : values) {
-                deck.add(new Card(value, suit));
+        String[] worth = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", "11" };
+        for (int i = 0; i < suits.length; i++) {
+            for (int j = 0; j < values.length; j++) {
+                Card card = new Card(values[j], suits[i]);
+                card.setWorth(Integer.parseInt(worth[j]));
+                deck.add(card);
             }
         }
     }
@@ -92,8 +95,6 @@ public class CardGame {
     public void handleDrawButtonClick(int mouseX, int mouseY) {
         if (drawButton.isClicked(mouseX, mouseY) && playerOneTurn) {
             drawCard(playerOneHand);
-            // Switch turns after drawing
-            switchTurns();
         }
     }
 
