@@ -1,8 +1,7 @@
-import processing.core.PApplet;
+
 
 public class Blackjack extends CardGame {
     // Uno-specific state
-    UnoComputer computerPlayer;
     boolean choosingWildColor = false;
     BJCard pendingWildCard;
     ClickableRectangle[] wildColorButtons;
@@ -29,7 +28,6 @@ public class Blackjack extends CardGame {
     @Override
     protected void initializeGame() {
         super.initializeGame();
-        computerPlayer = new UnoComputer();
         dealCards(2);
     }
 
