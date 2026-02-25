@@ -69,9 +69,18 @@ public class Card extends ClickableRectangle {
         this.height = height;
     }
 
-    @Override
+    public void drawFront(PApplet sketch) {
+        if (img != null) {
+            sketch.image(img, x, y, width, height);
+        } else {
+            sketch.fill(255);
+            sketch.rect(x, y, width, height);
+            sketch.fill(0);
+            sketch.text(value, x + 10, y + 10);
+        }
+    }
+
     public void draw(PApplet sketch) {
-        
         if (turned) {
             sketch.fill(150);
             sketch.rect(x, y, width, height);
@@ -83,18 +92,11 @@ public class Card extends ClickableRectangle {
         } else {
             sketch.stroke(0);
         }
-        if (img != null) {
-            sketch.image(img, x, y, width, height);
-        } else {
-            sketch.fill(255);
-            sketch.rect(x, y, width, height);
-            sketch.fill(0);
-            sketch.text(value, x + 10, y + 10);
-        }
+        drawFront(sketch);
         sketch.strokeWeight(1);
     }
 
-    //setworth method for blackjack
+//setworth method for blackjack
     private int worth;
     public void setWorth(int worth) {
         this.worth = worth;

@@ -28,6 +28,7 @@ public class App extends PApplet {
             Card card = cardGame.playerTwoHand.getCard(i);
             if (card != null) {
                 card.draw(this);
+
             }
         }
         

@@ -6,8 +6,7 @@ public class BJCard extends Card {
     }
 
     @Override
-    public void draw(PApplet sketch) {
-        super.draw(sketch);
+    public void drawFront(PApplet sketch) {
         // set card color based on suit
         switch (suit) {
             case "Hearts":

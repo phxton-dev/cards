@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-import processing.core.PApplet;
-
 public class CardGame {
     // Core game components
     ArrayList<Card> deck = new ArrayList<>();
