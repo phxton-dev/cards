@@ -182,8 +182,6 @@ public class CardGame {
                 card.setTurned(false);
             }
         }
-        
-        // Dealer hits until reaching 17 or higher (stands on soft 17)
         while (getHandWorth(playerTwoHand) < 17) {
             drawCard(playerTwoHand);
             playerTwoHand.positionCards(50, 50, 80, 120, 20);
