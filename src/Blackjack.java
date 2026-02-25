@@ -1,13 +1,6 @@
 
 
 public class Blackjack extends CardGame {
-    // Uno-specific state
-    boolean choosingWildColor = false;
-    BJCard pendingWildCard;
-    ClickableRectangle[] wildColorButtons;
-    int wildButtonSize = 24;
-    int wildCenterX = 300;
-    int wildCenterY = 300;
     static String[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
     static String[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 

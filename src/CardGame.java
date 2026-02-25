@@ -6,9 +6,6 @@ public class CardGame {
     ArrayList<Card> deck = new ArrayList<>();
     Hand playerOneHand;
     Hand playerTwoHand;
-    ArrayList<Card> discardPile = new ArrayList<>();
-    Card selectedCard;
-    int selectedCardRaiseAmount = 15;
 
     // Game state
     boolean playerOneTurn = true;
@@ -49,7 +46,6 @@ public class CardGame {
 
         // Initialize decks and hands
         deck = new ArrayList<>();
-        discardPile = new ArrayList<>();
         playerOneHand = new Hand();
         playerTwoHand = new Hand();
         gameActive = true;
@@ -88,19 +84,12 @@ public class CardGame {
     public void drawCard(Hand hand) {
         if (deck != null && !deck.isEmpty()) {
             hand.addCard(deck.remove(0));
-        } else if (discardPile != null && discardPile.size() > 1) {
-            // Reshuffle discard pile into deck if deck is empty
-            lastPlayedCard = discardPile.remove(discardPile.size() - 1);
-            deck.addAll(discardPile);
-            discardPile.clear();
-            discardPile.add(lastPlayedCard);
-            Collections.shuffle(deck);
+        }
 
             if (!deck.isEmpty()) {
                 hand.addCard(deck.remove(0));
             }
         }
-    }
 
     public void handleDrawButtonClick(int mouseX, int mouseY) {
         if (drawButton.isClicked(mouseX, mouseY) && playerOneTurn) {

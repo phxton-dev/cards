@@ -47,18 +47,7 @@ public class BJCard extends Card {
         }
         sketch.textSize(14);
         // put on the upper left corner
-        if (value == "Skip") {
-            // skip symbol can be represented as a circle with a line through it
-            sketch.push();
-            sketch.noFill();
-            sketch.stroke(0);
-            sketch.strokeWeight(3);
-            sketch.ellipse(x + 15, y + 15, 20, 20);
-            sketch.line(x + 5, y + 5, x + 25, y + 25);
-            sketch.pop();
-        } else {
-            sketch.text(value, x + 10, y + 10);
-        }
+        sketch.text(value, x + 10, y + 10);
 
     }
 

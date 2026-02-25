@@ -6,7 +6,6 @@ public class Card extends ClickableRectangle {
     String suit;
     PImage img;
     boolean turned = false;
-    private int clickableWidth = 30; // Width of the left sliver that is clickable
     private boolean selected = false;
     private int baseY;
     private boolean hasBaseY = false;
@@ -26,10 +25,6 @@ public class Card extends ClickableRectangle {
         this.turned = turned;
     }
 
-    public void setClickableWidth(int width) {
-        this.clickableWidth = width;
-    }
-
     public void setSelected(boolean selected, int raiseAmount) {
         if (selected && !this.selected) {
             baseY = y;
@@ -41,16 +36,6 @@ public class Card extends ClickableRectangle {
         this.selected = selected;
     }
 
-    public boolean isSelected() {
-        return selected;
-    }
-
-    @Override
-    public boolean isClicked(int mouseX, int mouseY) {
-        // Only the left sliver of the card is clickable
-        return mouseX >= x && mouseX <= x + clickableWidth &&
-                mouseY >= y && mouseY <= y + height;
-    }
 
     public void setPosition(int x, int y) {
         this.x = x;
@@ -86,10 +71,7 @@ public class Card extends ClickableRectangle {
             sketch.rect(x, y, width, height);
             return;
         }
-        if (isSelected()) {
-            sketch.stroke(0);
-            sketch.strokeWeight(4);
-        } else {
+         else {
             sketch.stroke(0);
         }
         drawFront(sketch);
