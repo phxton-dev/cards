@@ -9,7 +9,6 @@ public class CardGame {
 
     // Game state
     boolean playerOneTurn = true;
-    Card lastPlayedCard;
     boolean gameActive;
 
     // UI
@@ -85,10 +84,6 @@ public class CardGame {
         if (deck != null && !deck.isEmpty()) {
             hand.addCard(deck.remove(0));
         }
-
-            if (!deck.isEmpty()) {
-                hand.addCard(deck.remove(0));
-            }
         }
 
     public void handleDrawButtonClick(int mouseX, int mouseY) {
@@ -143,10 +138,6 @@ public class CardGame {
 
     public String getCurrentPlayer() {
         return playerOneTurn ? "Player One" : "Player Two";
-    }
-
-    public Card getLastPlayedCard() {
-        return lastPlayedCard;
     }
 
     public int getDeckSize() {

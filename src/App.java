@@ -65,11 +65,6 @@ public class App extends PApplet {
             textSize(32);
             text(winner, width / 2, height / 2);
         }
-        // Display last played card
-        if (cardGame.getLastPlayedCard() != null) {
-            cardGame.getLastPlayedCard().setPosition(width / 2 - 40, height / 2 - 60, 80, 120);
-            cardGame.getLastPlayedCard().draw(this);
-        }
         if (cardGame.getCurrentPlayer() == "Player Two") {
             fill(0);
             textSize(16);
