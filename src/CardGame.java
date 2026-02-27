@@ -298,12 +298,12 @@ public class CardGame {
                 animationProgress = 0;
                 playerOneTurn = true;
                 gameActive = true;
-                bettingPhase = true;
+               //bettingPhase = true;
                 currentBet = 0;
                 
                 // Clear hands
-                playerOneHand = new Hand();
-                playerTwoHand = new Hand();
+                //playerOneHand = new Hand();
+                //playerTwoHand = new Hand();
                 
                 // Recreate deck but don't deal yet
                 deck.clear();
@@ -365,8 +365,8 @@ public class CardGame {
     public void handleRestartClick() {
         // Only allow restart if animation has finished
         if (gameEnding && !restarting && animationProgress >= (animationDelay + animationDuration)) {
-            restarting = true;
-            animationProgress = 0;
+            bettingPhase = true;
+            //animationProgress = 0;
         }
     }
     
@@ -383,9 +383,12 @@ public class CardGame {
     public void handleStartButtonClick(int mouseX, int mouseY) {
         if (startButton.isClicked(mouseX, mouseY) && bettingPhase && currentBet > 0) {
             bettingPhase = false;
+            animationProgress = 0;
+            restarting = true;
             // Clear any existing hands before dealing
             playerOneHand = new Hand();
             playerTwoHand = new Hand();
+            
             dealCards(2);
         }
     }
@@ -398,6 +401,8 @@ public class CardGame {
                 currentBet = betAmount;
                 balance -= betAmount; // Deduct immediately
                 bettingPhase = false;
+                animationProgress = 0;
+                restarting = true;
                 // Clear any existing hands before dealing
                 playerOneHand = new Hand();
                 playerTwoHand = new Hand();
