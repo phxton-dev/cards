@@ -376,13 +376,14 @@ public class CardGame {
             // Only allow bet if player has enough balance
             if (balance >= 10 && currentBet != 500) {
                 currentBet += 10;
-                balance -= 10; // Deduct immediately
+                //balance -= 10; // Deduct immediately
             }
         }
     }
     
     public void handleStartButtonClick(int mouseX, int mouseY) {
         if (startButton.isClicked(mouseX, mouseY) && bettingPhase && currentBet > 0) {
+            balance -= currentBet;
             bettingPhase = false;
             animationProgress = 0;
             restarting = true;
