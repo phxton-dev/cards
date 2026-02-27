@@ -114,7 +114,9 @@ public class CardGame {
         for (int i = 0; i < numCards; i++) {
             playerOneHand.addCard(deck.remove(0));
             Card card = deck.remove(0);
-            card.setTurned(true); // face down for computer player
+            if(i != 1) {
+                card.setTurned(true);
+            }
             playerTwoHand.addCard(card);
         }
 
