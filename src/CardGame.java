@@ -226,15 +226,15 @@ public class CardGame {
         int dealerWorth = getHandWorth(playerTwoHand);
         
         if (playerWorth > 21) {
-            return "Dealer Wins! Player Busted";
+            return "Dealer Wins! Player Busted \n Click to Play again";
         } else if (dealerWorth > 21) {
-            return "Player Wins! Dealer Busted";
+            return "Player Wins! Dealer Busted \n Click to Play again";
         } else if (playerWorth > dealerWorth) {
-            return "Player Wins!";
+            return "Player Wins! \n Click to Play again";
         } else if (dealerWorth > playerWorth) {
-            return "Dealer Wins!";
+            return "Dealer Wins! \n Click to Play again";
         } else {
-            return "Push! (Tie)";
+            return "Push! (Tie) \n Click to Play again";
         }
     }
     
@@ -373,7 +373,7 @@ public class CardGame {
     public void handleBetButtonClick(int mouseX, int mouseY) {
         if (betButton.isClicked(mouseX, mouseY) && bettingPhase) {
             // Only allow bet if player has enough balance
-            if (balance >= 10) {
+            if (balance >= 10 && currentBet != 500) {
                 currentBet += 10;
                 balance -= 10; // Deduct immediately
             }
