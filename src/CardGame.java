@@ -299,7 +299,7 @@ public class CardGame {
                 playerOneTurn = true;
                 gameActive = true;
                //bettingPhase = true;
-                currentBet = 0;
+                //currentBet = 0;
                 
                 // Clear hands
                 //playerOneHand = new Hand();
@@ -365,6 +365,7 @@ public class CardGame {
     public void handleRestartClick() {
         // Only allow restart if animation has finished
         if (gameEnding && !restarting && animationProgress >= (animationDelay + animationDuration)) {
+            currentBet = 0;
             bettingPhase = true;
             //animationProgress = 0;
         }
