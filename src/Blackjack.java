@@ -21,7 +21,7 @@ public class Blackjack extends CardGame {
     @Override
     protected void initializeGame() {
         super.initializeGame();
-        dealCards(2);
+        // Don't deal cards here, wait for betting phase to complete
     }
 
     private BJCard createCard(String suit, String value) {

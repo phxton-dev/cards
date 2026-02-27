@@ -10,6 +10,9 @@ public class CardGame {
     // Game state
     boolean playerOneTurn = true;
     boolean gameActive;
+    boolean bettingPhase = true;
+    int currentBet = 0;
+    int balance = 1000; // Starting balance
     
     // Animation state
     boolean gameEnding = false;
@@ -20,20 +23,32 @@ public class CardGame {
 
     // UI
     ClickableRectangle drawButton;
-    int drawButtonX = 175;
+    int drawButtonX = 185;
     int drawButtonY = 300;
     int drawButtonWidth = 100;
     int drawButtonHeight = 35;
 
     //stand
     ClickableRectangle standButton;
-    int standButtonX = 300;
+    int standButtonX = 315;
     int standButtonY = 300;
+    
+    // Betting buttons
+    ClickableRectangle betButton;
+    ClickableRectangle startButton;
+    ClickableRectangle maxBetButton;
+    int betButtonX = 75;
+    int betButtonY = 300;
+    int betButtonWidth = 100;
+    int betButtonHeight = 35;
+    int startButtonX = 250;
+    int startButtonY = 300;
+    int maxBetButtonX = 425;
+    int maxBetButtonY = 300;
 
     public CardGame() {
         initializeGame();
-        dealCards(2);
-
+        // Don't deal cards yet, wait for betting phase
     }
 
     protected void initializeGame() {
@@ -49,12 +64,33 @@ public class CardGame {
         standButton.y = standButtonY;
         standButton.width = drawButtonWidth;
         standButton.height = drawButtonHeight;
+        
+        // Initialize betting buttons
+        betButton = new ClickableRectangle();
+        betButton.x = betButtonX;
+        betButton.y = betButtonY;
+        betButton.width = betButtonWidth;
+        betButton.height = betButtonHeight;
+        
+        startButton = new ClickableRectangle();
+        startButton.x = startButtonX;
+        startButton.y = startButtonY;
+        startButton.width = betButtonWidth;
+        startButton.height = betButtonHeight;
+        
+        maxBetButton = new ClickableRectangle();
+        maxBetButton.x = maxBetButtonX;
+        maxBetButton.y = maxBetButtonY;
+        maxBetButton.width = betButtonWidth;
+        maxBetButton.height = betButtonHeight;
 
         // Initialize decks and hands
         deck = new ArrayList<>();
         playerOneHand = new Hand();
         playerTwoHand = new Hand();
         gameActive = true;
+        bettingPhase = true;
+        currentBet = 0;
 
         createDeck();
     }
@@ -176,6 +212,9 @@ public class CardGame {
         gameActive = false;
         gameEnding = true;
         animationProgress = 0;
+        
+        // Update balance based on outcome
+        updateBalance();
     }
     
     public String getWinner() {
@@ -196,6 +235,26 @@ public class CardGame {
             return "Dealer Wins!";
         } else {
             return "Push! (Tie)";
+        }
+    }
+    
+    private void updateBalance() {
+        int playerWorth = getHandWorth(playerOneHand);
+        int dealerWorth = getHandWorth(playerTwoHand);
+        
+        if (playerWorth > 21) {
+            // Player busts, lose bet (already deducted)
+        } else if (dealerWorth > 21) {
+            // Dealer busts, player wins - return bet + winnings
+            balance += currentBet * 2;
+        } else if (playerWorth > dealerWorth) {
+            // Player wins - return bet + winnings
+            balance += currentBet * 2;
+        } else if (dealerWorth > playerWorth) {
+            // Dealer wins, lose bet (already deducted)
+        } else {
+            // Push - return the bet
+            balance += currentBet;
         }
     }
     
@@ -233,21 +292,22 @@ public class CardGame {
                 // Slide stand button back from right
                 standButton.x = standButtonX + (int)(400 * progress);
             } else {
-                // Animation complete, reset game
+                // Animation complete, reset game to betting phase
                 restarting = false;
                 gameEnding = false;
                 animationProgress = 0;
                 playerOneTurn = true;
                 gameActive = true;
+                bettingPhase = true;
+                currentBet = 0;
                 
                 // Clear hands
                 playerOneHand = new Hand();
                 playerTwoHand = new Hand();
                 
-                // Recreate and deal
+                // Recreate deck but don't deal yet
                 deck.clear();
                 createDeck();
-                dealCards(2);
             }
             return;
         }
@@ -308,6 +368,54 @@ public class CardGame {
             restarting = true;
             animationProgress = 0;
         }
+    }
+    
+    public void handleBetButtonClick(int mouseX, int mouseY) {
+        if (betButton.isClicked(mouseX, mouseY) && bettingPhase) {
+            // Only allow bet if player has enough balance
+            if (balance >= 10) {
+                currentBet += 10;
+                balance -= 10; // Deduct immediately
+            }
+        }
+    }
+    
+    public void handleStartButtonClick(int mouseX, int mouseY) {
+        if (startButton.isClicked(mouseX, mouseY) && bettingPhase && currentBet > 0) {
+            bettingPhase = false;
+            // Clear any existing hands before dealing
+            playerOneHand = new Hand();
+            playerTwoHand = new Hand();
+            dealCards(2);
+        }
+    }
+    
+    public void handleMaxBetButtonClick(int mouseX, int mouseY) {
+        if (maxBetButton.isClicked(mouseX, mouseY) && bettingPhase) {
+            // Bet up to $500 or balance, whichever is less
+            int betAmount = Math.min(500, balance);
+            if (betAmount > 0) {
+                currentBet = betAmount;
+                balance -= betAmount; // Deduct immediately
+                bettingPhase = false;
+                // Clear any existing hands before dealing
+                playerOneHand = new Hand();
+                playerTwoHand = new Hand();
+                dealCards(2);
+            }
+        }
+    }
+    
+    public boolean isBettingPhase() {
+        return bettingPhase;
+    }
+    
+    public int getCurrentBet() {
+        return currentBet;
+    }
+    
+    public int getBalance() {
+        return balance;
     }
 
 }
