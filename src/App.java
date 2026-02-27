@@ -15,7 +15,11 @@ public class App extends PApplet {
 
     @Override
     public void draw() {
-        background(50,168,82); 
+        background(50,168,82);
+        
+        // Update end game animations
+        cardGame.updateEndGameAnimation();
+        
         // Draw player hands
         for (int i = 0; i < cardGame.playerOneHand.getSize(); i++) {
             Card card = cardGame.playerOneHand.getCard(i);
@@ -46,26 +50,29 @@ public class App extends PApplet {
         textAlign(CENTER, CENTER);
         text("Stand", cardGame.standButton.x + cardGame.standButton.width / 2, cardGame.standButton.y + cardGame.standButton.height / 2);
 
-        // Display current player
-        fill(0);
-        textSize(16);
-        text("Current Player: " + cardGame.getCurrentPlayer(), width / 2, 20);
+        // Only display text if not animating end game
+        if (!cardGame.shouldHideText()) {
+            // Display current player
+            fill(0);
+            textSize(16);
+            text("Current Player: " + cardGame.getCurrentPlayer(), width / 2, 20);
 
-        // Display hand worth
-        text("Player Hand: " + cardGame.getHandWorth(cardGame.playerOneHand), 100, height - 20);
+            // Display hand worth
+            text("Player Hand: " + cardGame.getHandWorth(cardGame.playerOneHand), 100, height - 20);
+            
+            // Display deck size
+            text("Deck Size: " + cardGame.getDeckSize(), width / 2,
+                    height - 20);
+        }
         
-        // Display deck size
-        text("Deck Size: " + cardGame.getDeckSize(), width / 2,
-                height - 20);
-        
-        // Display winner if game is over
+        // Display winner if game is over (with delay to avoid button overlap)
         String winner = cardGame.getWinner();
-        if (!winner.isEmpty()) {
+        if (!winner.isEmpty() && cardGame.shouldShowWinner()) {
             fill(255, 255, 0);
             textSize(32);
             text(winner, width / 2, height / 2);
         }
-        if (cardGame.getCurrentPlayer() == "Player Two") {
+        if (cardGame.getCurrentPlayer() == "Player Two" && !cardGame.shouldHideText()) {
             fill(0);
             textSize(16);
             text("Computer is thinking...", width / 2, height / 2 + 80);
@@ -80,8 +87,14 @@ public class App extends PApplet {
     
     @Override
     public void mousePressed() {
-        cardGame.handleDrawButtonClick(mouseX, mouseY);
-        cardGame.handleStandButtonClick(mouseX, mouseY);
+        // Handle restart on end screen
+        if (!cardGame.gameActive && cardGame.gameEnding) {
+            cardGame.handleRestartClick();
+        } else {
+            // Normal game clicks
+            cardGame.handleDrawButtonClick(mouseX, mouseY);
+            cardGame.handleStandButtonClick(mouseX, mouseY);
+        }
     }
 
 }

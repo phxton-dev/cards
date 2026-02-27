@@ -10,6 +10,13 @@ public class CardGame {
     // Game state
     boolean playerOneTurn = true;
     boolean gameActive;
+    
+    // Animation state
+    boolean gameEnding = false;
+    boolean restarting = false;
+    int animationProgress = 0;
+    int animationDelay = 120; // 120 frames (2 seconds) delay before animation
+    int animationDuration = 60; // 60 frames for animation
 
     // UI
     ClickableRectangle drawButton;
@@ -167,6 +174,8 @@ public class CardGame {
         
         // Game is over, determine winner
         gameActive = false;
+        gameEnding = true;
+        animationProgress = 0;
     }
     
     public String getWinner() {
@@ -187,6 +196,117 @@ public class CardGame {
             return "Dealer Wins!";
         } else {
             return "Push! (Tie)";
+        }
+    }
+    
+    public void updateEndGameAnimation() {
+        if (!gameEnding && !restarting) {
+            return;
+        }
+        
+        animationProgress++;
+        
+        if (restarting) {
+            // Reverse animation - slide everything back in
+            if (animationProgress < animationDuration) {
+                float progress = 1.0f - ((float) animationProgress / animationDuration);
+                
+                // Slide dealer cards back from up
+                for (int i = 0; i < playerTwoHand.getSize(); i++) {
+                    Card card = playerTwoHand.getCard(i);
+                    if (card != null) {
+                        card.y = 50 - (int)(200 * progress);
+                    }
+                }
+                
+                // Slide player cards back from down
+                for (int i = 0; i < playerOneHand.getSize(); i++) {
+                    Card card = playerOneHand.getCard(i);
+                    if (card != null) {
+                        card.y = 450 + (int)(200 * progress);
+                    }
+                }
+                
+                // Slide hit button back from left
+                drawButton.x = drawButtonX - (int)(300 * progress);
+                
+                // Slide stand button back from right
+                standButton.x = standButtonX + (int)(400 * progress);
+            } else {
+                // Animation complete, reset game
+                restarting = false;
+                gameEnding = false;
+                animationProgress = 0;
+                playerOneTurn = true;
+                gameActive = true;
+                
+                // Clear hands
+                playerOneHand = new Hand();
+                playerTwoHand = new Hand();
+                
+                // Recreate and deal
+                deck.clear();
+                createDeck();
+                dealCards(2);
+            }
+            return;
+        }
+        
+        // Wait for delay period before starting animation
+        if (animationProgress <= animationDelay) {
+            return;
+        }
+        
+        int animFrame = animationProgress - animationDelay;
+        if (animFrame < animationDuration) {
+            // Calculate slide distance for this frame
+            float progress = (float) animFrame / animationDuration;
+            
+            // Slide dealer cards up
+            for (int i = 0; i < playerTwoHand.getSize(); i++) {
+                Card card = playerTwoHand.getCard(i);
+                if (card != null) {
+                    card.y = 50 - (int)(200 * progress);
+                }
+            }
+            
+            // Slide player cards down
+            for (int i = 0; i < playerOneHand.getSize(); i++) {
+                Card card = playerOneHand.getCard(i);
+                if (card != null) {
+                    card.y = 450 + (int)(200 * progress);
+                }
+            }
+            
+            // Slide hit button left
+            drawButton.x = drawButtonX - (int)(300 * progress);
+            
+            // Slide stand button right
+            standButton.x = standButtonX + (int)(400 * progress);
+        }
+    }
+    
+    public boolean isAnimating() {
+        return (gameEnding || restarting) && animationProgress < (animationDelay + animationDuration);
+    }
+    
+    public boolean shouldHideText() {
+        return gameEnding || restarting;
+    }
+    
+    public boolean shouldShowWinner() {
+        if (!gameEnding || restarting) {
+            return false;
+        }
+        // Show winner after buttons have moved a bit (30 frames into the animation)
+        return animationProgress > (animationDelay + 30);
+    }
+    
+    public void handleRestartClick() {
+        // Only allow restart if animation has finished
+        if (gameEnding && !restarting && animationProgress >= (animationDelay + animationDuration)) {
+            restarting = true;
+            animationProgress = 0;
         }
     }
 
