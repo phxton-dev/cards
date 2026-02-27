@@ -306,8 +306,6 @@ public class CardGame {
                 //playerTwoHand = new Hand();
                 
                 // Recreate deck but don't deal yet
-                deck.clear();
-                createDeck();
             }
             return;
         }
@@ -390,7 +388,8 @@ public class CardGame {
             // Clear any existing hands before dealing
             playerOneHand = new Hand();
             playerTwoHand = new Hand();
-            
+            deck.clear();
+            createDeck();
             dealCards(2);
         }
     }
@@ -408,6 +407,8 @@ public class CardGame {
                 // Clear any existing hands before dealing
                 playerOneHand = new Hand();
                 playerTwoHand = new Hand();
+                deck.clear();
+                createDeck();
                 dealCards(2);
             }
         }
