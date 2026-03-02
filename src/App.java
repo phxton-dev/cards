@@ -42,7 +42,8 @@ public class App extends PApplet {
             //Displays how many times they had to buy back in
             fill(0);
             textSize(16);
-            text("You have bought back in " + cardGame.getBuyIn() + " times", width/2,380 );
+            text("You have bought back in " + cardGame.getBuyIn() + " times", width/2,400 );
+            text("Profit: $" + (cardGame.balance - (1000 * (cardGame.getBuyIn()+1)) - (1000 * cardGame.getBuyIn())), width/2,380 );
             // Display current bet
             textSize(24);
             text("Current Bet: $" + cardGame.getCurrentBet(), width / 2, 200);
