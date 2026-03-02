@@ -38,8 +38,12 @@ public class App extends PApplet {
             fill(255);
             text("MaxBet", cardGame.maxBetButton.x + cardGame.maxBetButton.width / 2, cardGame.maxBetButton.y + cardGame.maxBetButton.height / 2);
             
-            // Display current bet
+
+            //Displays how many times they had to buy back in
             fill(0);
+            textSize(16);
+            text("You have bought back in " + cardGame.getBuyIn() + " times", width/2,380 );
+            // Display current bet
             textSize(24);
             text("Current Bet: $" + cardGame.getCurrentBet(), width / 2, 200);
             

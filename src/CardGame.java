@@ -13,6 +13,7 @@ public class CardGame {
     boolean bettingPhase = true;
     int currentBet = 0;
     int balance = 1000; // Starting balance
+    int buyIns = 0;
     
     // Animation state
     boolean gameEnding = false;
@@ -189,6 +190,10 @@ public class CardGame {
         return deck != null ? deck.size() : 0;
     }
 
+    public int getBuyIn() {
+        return buyIns;
+    }
+
     public Hand getPlayerOneHand() {
         return playerOneHand;
     }
@@ -217,6 +222,10 @@ public class CardGame {
         
         // Update balance based on outcome
         updateBalance();
+        if(balance == 0){
+            balance = 1000;
+            buyIns += 1;
+        }
     }
     
     public String getWinner() {
