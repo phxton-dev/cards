@@ -33,6 +33,11 @@ public class CardGame {
     ClickableRectangle standButton;
     int standButtonX = 315;
     int standButtonY = 300;
+
+    //double down
+    ClickableRectangle doubleDownButton;
+    int doubleButtonX = 485;
+    int doubleButtonY = 400;
     
     // Betting buttons
     ClickableRectangle betButton;
@@ -59,6 +64,12 @@ public class CardGame {
         drawButton.y = drawButtonY;
         drawButton.width = drawButtonWidth;
         drawButton.height = drawButtonHeight;
+
+        doubleDownButton = new ClickableRectangle();
+        doubleDownButton.x = doubleButtonX;
+        doubleDownButton.y = doubleButtonY;
+        doubleDownButton.width = drawButtonWidth;
+        doubleDownButton.height = drawButtonHeight;
 
         standButton = new ClickableRectangle();
         standButton.x = standButtonX;
@@ -150,6 +161,17 @@ public class CardGame {
         if (standButton.isClicked(mouseX, mouseY) && playerOneTurn) {
             // Player chooses to stand, switch turns
             switchTurns();
+        }
+    }
+
+    public void handleDoubleDownClick(int mouseX, int mouseY){
+        if(doubleDownButton.isClicked(mouseX, mouseY)) {
+            currentBet *= 2;
+            balance -= currentBet /2;
+            drawCard(playerOneHand);
+            playerOneHand.positionCards(50, 450, 80, 120, 20);
+            switchTurns();
+
         }
     }
     
@@ -302,6 +324,7 @@ public class CardGame {
                 
                 // Slide stand button back from right
                 standButton.x = standButtonX + (int)(400 * progress);
+                doubleDownButton.x = doubleButtonX + (int)(400*progress);
             } else {
                 // Animation complete, reset game to betting phase
                 restarting = false;
@@ -352,6 +375,7 @@ public class CardGame {
             
             // Slide stand button right
             standButton.x = standButtonX + (int)(400 * progress);
+            doubleDownButton.x = doubleButtonX + (int)(400*progress);
         }
     }
     

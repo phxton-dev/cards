@@ -72,6 +72,15 @@ public class App extends PApplet {
                 }
             }
             
+            //Double down button
+            if(cardGame.playerOneHand.getSize() == 2 && cardGame.getCurrentPlayer().equals("Player One")){
+                fill(218,165,32);
+                cardGame.doubleDownButton.draw(this);
+                fill(0);
+                textAlign(CENTER,CENTER);
+                text("Double Bet", cardGame.doubleDownButton.x +cardGame.doubleDownButton.width/2, cardGame.doubleDownButton.y + cardGame.doubleDownButton.height / 2);
+            }
+
             // Draw draw button
             fill(0);
             cardGame.drawButton.draw(this);
@@ -139,6 +148,10 @@ public class App extends PApplet {
             // Normal game clicks
             cardGame.handleDrawButtonClick(mouseX, mouseY);
             cardGame.handleStandButtonClick(mouseX, mouseY);
+
+            if(cardGame.playerOneHand.getSize() == 2){
+                cardGame.handleDoubleDownClick(mouseX, mouseY);
+            }
         }
     }
 
