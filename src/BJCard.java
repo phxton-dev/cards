@@ -40,11 +40,59 @@ public class BJCard extends Card {
                 sketch.bezierVertex(x+40, y+30, x, y+40, x+40, y+75);
                 sketch.endShape();
                 }
+                else{
+                    sketch.fill(20,20,100);
+                    sketch.rect(x, y, width, height);
+                    sketch.stroke(50,50,130);
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+height);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+height,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+(height/2),x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+(height/2));
+                    }
+                    
+                }
                 break;
             case "Diamonds":
                 if(!turned){
                 sketch.fill(255, 0, 0);
                 sketch.quad(x+(width/4),y+(height/2),x+((width/2)),y+(height/4),x+(3*(width/4)),y+(height/2),x+(width/2),y+(3*(height/4)));
+                }
+                else{
+                    sketch.fill(20,20,100);
+                    sketch.rect(x, y, width, height);
+                    sketch.stroke(50,50,130);
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+height);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+height,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+(height/2),x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+(height/2));
+                    }
+                    
                 }
                 break;
             case "Clubs":
@@ -56,6 +104,30 @@ public class BJCard extends Card {
                 sketch.strokeWeight(5);
                 sketch.line(x+37,y+50,x+37,y+75);
                 }
+                else{
+                    sketch.fill(20,20,100);
+                    sketch.rect(x, y, width, height);
+                    sketch.stroke(50,50,130);
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+height);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+height,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+(height/2),x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+(height/2));
+                    }
+                    
+                }
                 break;
             case "Spades":
                 if(!turned){
@@ -65,6 +137,30 @@ public class BJCard extends Card {
                 sketch.line(x+(width/2),y+(height/2),x+(width/2),y+((4*height/6)));
                 sketch.circle(x+(width/3)+1,y+(height/2)+2,16);
                 sketch.circle(x+(2*width/3),y+(height/2)+2,16);
+                }
+                else{
+                    sketch.fill(20,20,100);
+                    sketch.rect(x, y, width, height);
+                    sketch.stroke(50,50,130);
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+height);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+height,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y,x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y);
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+(height/2),x+width,y+i*(height/8));
+                    }
+                    for(int i = 0; i < 8; i++){
+                        sketch.line(x,y+i*(height/8),x+width,y+(height/2));
+                    }
+                    
                 }
                 break;
             default:
