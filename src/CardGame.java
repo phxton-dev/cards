@@ -165,7 +165,7 @@ public class CardGame {
     }
 
     public void handleDoubleDownClick(int mouseX, int mouseY){
-        if(doubleDownButton.isClicked(mouseX, mouseY) && balance >= currentBet*2) {
+        if(doubleDownButton.isClicked(mouseX, mouseY) && balance >= currentBet) {
             balance -= currentBet;
             currentBet *= 2;
             drawCard(playerOneHand);
