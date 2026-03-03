@@ -16,7 +16,15 @@ public class App extends PApplet {
     @Override
     public void draw() {
         background(50,168,82);
-        
+        if(!cardGame.isBettingPhase()){
+        push();
+        fill(70,188,102);
+        stroke(181, 117, 0);
+        strokeWeight(3);
+        rect(-3,440, width+4,175);
+        circle(width/2,-100,750);
+        pop();
+        }
         // Update end game animations
         cardGame.updateEndGameAnimation();
         
