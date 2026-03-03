@@ -165,9 +165,9 @@ public class CardGame {
     }
 
     public void handleDoubleDownClick(int mouseX, int mouseY){
-        if(doubleDownButton.isClicked(mouseX, mouseY)) {
+        if(doubleDownButton.isClicked(mouseX, mouseY) && balance >= currentBet*2) {
+            balance -= currentBet;
             currentBet *= 2;
-            balance -= currentBet /2;
             drawCard(playerOneHand);
             playerOneHand.positionCards(50, 450, 80, 120, 20);
             switchTurns();
@@ -409,7 +409,6 @@ public class CardGame {
             // Only allow bet if player has enough balance
             if (balance >= 10 && currentBet != 500) {
                 currentBet += 10;
-                //balance -= 10; // Deduct immediately
             }
         }
     }

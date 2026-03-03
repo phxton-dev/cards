@@ -82,6 +82,7 @@ public class App extends PApplet {
             
             //Double down button
             if(cardGame.playerOneHand.getSize() == 2 && cardGame.getCurrentPlayer().equals("Player One")){
+                strokeWeight(1);
                 fill(218,165,32);
                 cardGame.doubleDownButton.draw(this);
                 fill(0);
@@ -128,7 +129,7 @@ public class App extends PApplet {
                 textSize(32);
                 text(winner, width / 2, height / 2);
             }
-            if (cardGame.getCurrentPlayer() == "Player Two" && !cardGame.shouldHideText()) {
+            if (cardGame.getCurrentPlayer().equals("Player Two") && !cardGame.shouldHideText()) {
                 fill(0);
                 textSize(16);
                 text("Computer is thinking...", width / 2, height / 2 + 80);
