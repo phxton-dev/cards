@@ -1,9 +1,11 @@
 import processing.core.PApplet;
+import processing.core.PFont;
 
 public class App extends PApplet {
 
     CardGame cardGame = new Blackjack();
     private int timer;
+    private PFont font;
 
     public static void main(String[] args) {
         PApplet.main("App");
@@ -14,7 +16,14 @@ public class App extends PApplet {
     }
 
     @Override
+    public void setup() {
+        font = createFont("font.ttf", 32);
+        textFont(font);
+    }
+
+    @Override
     public void draw() {
+        textFont(font);
         background(50,168,82);
         if(!cardGame.isBettingPhase()){
         push();
