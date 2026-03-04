@@ -43,16 +43,19 @@ public class App extends PApplet {
             cardGame.betButton.draw(this);
             fill(255);
             textAlign(CENTER, CENTER);
+            textSize(16);
             text("Bet", cardGame.betButton.x + cardGame.betButton.width / 2, cardGame.betButton.y + cardGame.betButton.height / 2);
             
             fill(0);
             cardGame.startButton.draw(this);
             fill(255);
+            textSize(16);
             text("Start", cardGame.startButton.x + cardGame.startButton.width / 2, cardGame.startButton.y + cardGame.startButton.height / 2);
             
             fill(0);
             cardGame.maxBetButton.draw(this);
             fill(255);
+            textSize(16);
             text("MaxBet", cardGame.maxBetButton.x + cardGame.maxBetButton.width / 2, cardGame.maxBetButton.y + cardGame.maxBetButton.height / 2);
             
 
