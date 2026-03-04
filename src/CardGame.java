@@ -321,105 +321,71 @@ public class CardGame {
                 
                 // Slide hit button back from left
                 drawButton.x = drawButtonX - (int)(300 * progress);
-                
-                // Slide stand button back from right
                 standButton.x = standButtonX + (int)(400 * progress);
                 doubleDownButton.x = doubleButtonX + (int)(400*progress);
             } else {
-                // Animation complete, reset game to betting phase
                 restarting = false;
                 gameEnding = false;
                 animationProgress = 0;
                 playerOneTurn = true;
                 gameActive = true;
-               //bettingPhase = true;
-                //currentBet = 0;
-                
-                // Clear hands
-                //playerOneHand = new Hand();
-                //playerTwoHand = new Hand();
-                
-                // Recreate deck but don't deal yet
             }
             return;
         }
-        
-        // Wait for delay period before starting animation
         if (animationProgress <= animationDelay) {
             return;
         }
-        
         int animFrame = animationProgress - animationDelay;
         if (animFrame < animationDuration) {
-            // Calculate slide distance for this frame
             float progress = (float) animFrame / animationDuration;
-            
-            // Slide dealer cards up
             for (int i = 0; i < playerTwoHand.getSize(); i++) {
                 Card card = playerTwoHand.getCard(i);
                 if (card != null) {
                     card.y = 50 - (int)(200 * progress);
                 }
             }
-            
-            // Slide player cards down
             for (int i = 0; i < playerOneHand.getSize(); i++) {
                 Card card = playerOneHand.getCard(i);
                 if (card != null) {
                     card.y = 450 + (int)(200 * progress);
                 }
             }
-            
-            // Slide hit button left
             drawButton.x = drawButtonX - (int)(300 * progress);
-            
-            // Slide stand button right
             standButton.x = standButtonX + (int)(400 * progress);
             doubleDownButton.x = doubleButtonX + (int)(400*progress);
         }
     }
-    
     public boolean isAnimating() {
         return (gameEnding || restarting) && animationProgress < (animationDelay + animationDuration);
     }
-    
     public boolean shouldHideText() {
         return gameEnding || restarting;
     }
-    
     public boolean shouldShowWinner() {
         if (!gameEnding || restarting) {
             return false;
         }
-        // Show winner after buttons have moved a bit (30 frames into the animation)
         return animationProgress > (animationDelay + 30);
     }
-    
     public void handleRestartClick() {
-        // Only allow restart if animation has finished
         if (gameEnding && !restarting && animationProgress >= (animationDelay + animationDuration)) {
             currentBet = 0;
             bettingPhase = true;
-            //animationProgress = 0;
         }
     }
-    
     public void handleBetButtonClick(int mouseX, int mouseY) {
         if (betButton.isClicked(mouseX, mouseY) && bettingPhase) {
-            // Only allow bet if player has enough balance
             if (currentBet + 10 <= balance && currentBet != 500) {
                 currentBet += 10;
             }
         }
     }
-    
     public void handleStartButtonClick(int mouseX, int mouseY) {
         if (startButton.isClicked(mouseX, mouseY) && bettingPhase && currentBet > 0 && currentBet <= balance) {
             balance -= currentBet;
             bettingPhase = false;
             animationProgress = 0;
             restarting = true;
-            // Clear any existing hands before dealing
             playerOneHand = new Hand();
             playerTwoHand = new Hand();
             deck.clear();
@@ -447,17 +413,13 @@ public class CardGame {
             }
         }
     }
-    
     public boolean isBettingPhase() {
         return bettingPhase;
     }
-    
     public int getCurrentBet() {
         return currentBet;
     }
-    
     public int getBalance() {
         return balance;
     }
-
 }
